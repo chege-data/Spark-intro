@@ -1,0 +1,37 @@
+from pyspark.sql import Sparksession
+spark = SparkSession. \
+    builder. \
+    appName('Reading data from text file'). \
+    master('local'). \
+    getOrCreate()
+orders = spark.read.csv('/home/chege/Documents/CURE/Files/ethiopia.csv')
+print(orders.show())
+print(orders.PrintSchema())
+don = spark. \
+    read. \
+    csv('/home/chege/Documents/CURE/Files/ethiopia', sep=',',
+        schema='or_utilization_id,or_utilization_date,hospital,operating_room,or_utilization_hours,first_surgery_start,last_surgery_end,after_hours_surgery,low_utilization_reason,low_utilization_comments,data_recorder,knack_id,or_operational')
+print(don.printSchema())
+print(don.show())
+#format into csv
+don2 = spark. \
+    read. \
+    format('csv'). \
+    option('sep',','). \
+    schema('or_utilization_id,or_utilization_date,hospital,operating_room,or_utilization_hours,first_surgery_start,last_surgery_end,after_hours_surgery,low_utilization_reason,low_utilization_comments,data_recorder,knack_id,or_operational'). \
+    load('/home/chege/Documents/CURE/Files/new_ethiopia_file')
+print(don2.show())
+
+#using cast functions for specific columns
+don = spark.read.csv('/home/chege/Documents/CURE/Files/ethiopia.csv')
+don = don.withColumn('or_utilization_hours', don.or_utilization_hours.cast("int")). \
+    withColumn('after_hours_surgery', don.after_hours_surgery.cast(IntegerType()))
+
+
+
+
+
+
+
+
+
