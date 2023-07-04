@@ -1,0 +1,27 @@
+#Spark Framework
+
+#Execution Modes
+--Local
+--Standalone
+--Mesos
+--YARN - uses master(resource manager) and slave(node managers) architecture, it does the resource managements & job scheduling, different frameworks are plugin in into YARD such as map reduce and Spark
+
+#Execution Framework 
+--spark-submit - used to submit jobs
+--launch spark-submit
+export SPARK_MAJOR_VERSION=2
+pyspark --master yarn \
+> --conf spark.dynamicAllocation.enabled=false \
+> --conf sparl.ui.port=12709
+
+https://g01.itversity.com:12709/ = will give the spark UI in web based on the port passed
+
+--Application jar = jar containing users application
+--driver program = process that runs the main application of the program and creates the spark context
+--Cluster manager = External resource for acquiring resources on cluster (Mesos , YARN or standalone manager)
+--Deploy mode = distinguishes where the driver manager runs 
+--Worker mode = any node that can run application code in the cluster 
+--Executor = process launched for an application on a worker node, that runs tasks and keeps dat in memory or disks storage across them
+--Task = a unit of worker
+--Job = parallel computation consisting of multiple tasks (save, Collect
+--Stage = smaller set of tasks (Map and reduce
